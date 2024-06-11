@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { GlobalContext } from "../context";
 
 const Navbar = () => {
-  const { searchParam, setSearchParam, handleSubmit,} = useContext(GlobalContext);
+  const { searchParam, setSearchParam, handleSubmit } =
+    useContext(GlobalContext);
 
   return (
     <nav className="bg-gray-100 text-gray-800 py-4 px-6 flex flex-wrap justify-between items-center shadow-md">
@@ -15,7 +16,10 @@ const Navbar = () => {
           Food Recipes
         </Link>
       </h2>
-      <form className="flex items-center flex-grow w-full md:max-w-xl lg:max-w-2xl mb-4 md:mb-0" onSubmit={handleSubmit}>
+      <form
+        className="flex items-center flex-grow w-full md:max-w-xl lg:max-w-2xl mb-4 md:mb-0"
+        onSubmit={handleSubmit}
+      >
         <input
           type="text"
           name="search"

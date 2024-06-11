@@ -6,6 +6,7 @@ const GlobalState = ({ children }) => {
   const [searchParam, setSearchParam] = useState("");
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [recipeDetails, setRecipeDetails] = useState(null);
 
   async function handleSubmit(e) {
     try {
@@ -22,18 +23,23 @@ const GlobalState = ({ children }) => {
         setSearchParam("");
       }
 
-      console.log(responseData);
     } catch (error) {
       console.error(error);
       setLoading(false);
       setSearchParam("");
     }
   }
-
-  console.log(data);
   return (
     <GlobalContext.Provider
-      value={{ searchParam, loading, data, setSearchParam, handleSubmit }}
+      value={{
+        searchParam,
+        loading,
+        data,
+        recipeDetails,
+        setRecipeDetails,
+        setSearchParam,
+        handleSubmit,
+      }}
     >
       {children}
     </GlobalContext.Provider>
