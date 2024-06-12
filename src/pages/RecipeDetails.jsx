@@ -4,7 +4,12 @@ import { GlobalContext } from "../context";
 
 const RecipeDetails = () => {
   const { id } = useParams();
-  const { recipeDetails, setRecipeDetails } = useContext(GlobalContext);
+  const {
+    recipeDetails,
+    setRecipeDetails,
+    favouriteList,
+    handleAddToFavourites,
+  } = useContext(GlobalContext);
 
   useEffect(() => {
     async function LoadingDetails() {
@@ -39,7 +44,7 @@ const RecipeDetails = () => {
           <img
             src={recipeDetails.image_url}
             alt={recipeDetails.title}
-            className=" w-fit h-auto object-fit"
+            className=" w-full h-full object-cover block group-hover:scale-105 duration-300"
           />
           <div className="p-6 w-2/3">
             <h2 className="text-3xl font-bold mb-4 text-gray-800">
@@ -64,17 +69,34 @@ const RecipeDetails = () => {
             </p>
           </div>
           <div>
-            {recipeDetails.ingredients.map((ingredient, index) => (
-              <p key={index} className="text-lg text-gray-700 mb-2">
-                {ingredient.quantity} {ingredient.unit} {ingredient.description}
-              </p>
-            ))}
+            <span className="text-2xl font-semibold text-black">
+              Ingredients:
+            </span>
+            <ul className="flex flex-col gap-3">
+              {recipeDetails.ingredients.map((ingredient) => (
+                <li key={ingredient.id}>
+                  <span className="text-2xl font-semibold text-black">
+                    {ingredient.quantity} {ingredient.unit}
+                  </span>
+                  <span className="text-2xl font-semibold text-black">
+                    {ingredient.description}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
       <div className="flex flex-col place-content-center ml-4">
-        <button className="p-4 rounded-sm text-white bg-blue-500 hover:bg-blue-600">
-          Add as favourite
+        <button
+          onClick={() => handleAddToFavourites(recipeDetails)}
+          className="p-4 rounded-sm text-white bg-blue-500 hover:bg-blue-600"
+        >
+          {favouriteList.findIndex(
+            (item) => (item.id === recipeDetails.id) !== -1
+          )
+            ? "Add to favourites"
+            : "Remove from favourites"}
         </button>
       </div>
     </div>
